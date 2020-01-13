@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Capi</RootNamespace>
+    <LangVersion>8.0</LangVersion>
+    <ApplicationIcon />
+    <StartupObject />
+    <AssemblyName>Capi</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Commands\Command.cs" />
+    <Compile Remove="ExampleClass.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Commands\Command.cs" />
+    <None Include="ExampleClass.cs" />
+  </ItemGroup>
+
+</Project>
