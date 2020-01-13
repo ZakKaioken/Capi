@@ -1,5 +1,5 @@
 # Capi
- A Capi for any chat software
+ A Command API for any chat software
 
  by importing the api into your project, any command which derrives from Command type and has a Cmd attribute will be usable immediately through the command handler's DoCommands method. 
 
