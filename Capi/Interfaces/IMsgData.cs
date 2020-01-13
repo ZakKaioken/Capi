@@ -1,6 +1,6 @@
 ﻿namespace Capi.Interfaces
 {
-    public interface IMsgData
+    public interface iMsgData
     {
         string Message { get; set; }
     }

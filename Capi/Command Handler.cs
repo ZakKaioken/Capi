@@ -1,4 +1,5 @@
-﻿using Capi.DataObjects;
+﻿using Capi.Commands.CommandReciever;
+using Capi.DataObjects;
 using Capi.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,41 +10,39 @@ namespace Capi
 {
     public class Command_Handler
     {
+        public List<iCommandReciever> cr = new List<iCommandReciever>();
         public List<iCommand> StaticCommands = new List<iCommand>();
         public List<iCommand> commands = new List<iCommand>();
+
         public async Task Init()
         {
-            GetStaticCommandsThroughReflection();
+            var go = CRReflector.ReflectRecievers();
 
+            foreach(var ee in go)
+            {
+                if (!ee.Update)
+                {
+                    StaticCommands.AddRange(ee.RecieveCommands().GetAwaiter().GetResult());
+                    go.Remove(ee);
+                }
+            }
+            cr = go;
             await Task.CompletedTask;
         }
 
-        public void GetStaticCommandsThroughReflection()
-        {
-            IEnumerable<Type> types = GetTypes(typeof(iCommand));
-            foreach (Type t in types)
-            {
-                object[] exa = t.GetCustomAttributes(typeof(CmdAttribute), true);
-                foreach (CmdAttribute at in exa)
-                {
-                    iCommand obj = (iCommand)Activator.CreateInstance(t);
-                    obj.command = at.command;
-                    obj.Rating = (CommandRatings)at.commandRatings;
-                    obj.Type = (CommandType)at.commandType;
-                    StaticCommands.Add(obj);
-                }
-            }
-        }
-
+       
         public async Task Reload()
         {
             commands.Clear();
 
             commands.AddRange(StaticCommands);
-            //gelbooru commands
+            foreach(var go in cr)
+            {
+                if (go.Update) commands.AddRange(go.RecieveCommands().GetAwaiter().GetResult());
+            }
             await Task.CompletedTask;
         }
-        public async Task<object> DoCommands(MsgData md)
+        public async Task<object> DoCommands(iMsgData md)
         {
             List<object> ooo = new List<object>();
             await Reload();
@@ -61,14 +60,7 @@ namespace Capi
         }
 
 
-        private IEnumerable<Type> GetTypes(Type t)
-        {
-            Type type = t;
-            IEnumerable<Type> types = AppDomain.CurrentDomain.GetAssemblies()
-                .SelectMany(s => s.GetTypes())
-                .Where(p => type.IsAssignableFrom(p));
-            return types;
-        }
+        
     }
 
 
