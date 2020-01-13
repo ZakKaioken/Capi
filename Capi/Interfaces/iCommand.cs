@@ -6,7 +6,7 @@ namespace Capi.Interfaces
 
 
 
-    interface iCommand : ICommandRating, ICommandType
+    public interface iCommand : ICommandRating, ICommandType
     {
         string command { get; set; }
         Task<bool> Evaluate(MsgData message);

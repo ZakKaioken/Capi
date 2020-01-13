@@ -1,6 +1,6 @@
 ﻿namespace Capi.Interfaces
 {
-    enum CommandRatings
+    public enum CommandRatings
     {
         none = 0,
         cutie = 1,
@@ -9,7 +9,7 @@
         help = 4,
         admin = 5
     }
-    interface ICommandRating
+    public interface ICommandRating
     {
         CommandRatings Rating { get; set; }
     }

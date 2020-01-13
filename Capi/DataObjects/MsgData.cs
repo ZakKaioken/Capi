@@ -1,6 +1,6 @@
 ﻿namespace Capi.DataObjects
 {
-    class MsgData : Interfaces.IMsgData
+    public class MsgData : Interfaces.IMsgData
     {
         public string Message { get; set; }
 

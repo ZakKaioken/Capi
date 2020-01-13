@@ -1,6 +1,6 @@
 ﻿namespace Capi.Interfaces
 {
-    enum CommandType
+    public enum CommandType
     {
         none = 0,
         pics = 1,
@@ -9,7 +9,7 @@
         owner = 4,
         utils = 5
     }
-    interface ICommandType
+    public interface ICommandType
     {
         public CommandType Type { get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace Capi
 {
-    class CmdAttribute : Attribute
+    public class CmdAttribute : Attribute
     {
         public string command;
         public int commandRatings;

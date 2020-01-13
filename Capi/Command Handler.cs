@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Capi
 {
-    class Command_Handler
+    public class Command_Handler
     {
         public List<iCommand> StaticCommands = new List<iCommand>();
         public List<iCommand> commands = new List<iCommand>();
@@ -18,7 +18,7 @@ namespace Capi
             await Task.CompletedTask;
         }
 
-        private void GetStaticCommandsThroughReflection()
+        public void GetStaticCommandsThroughReflection()
         {
             IEnumerable<Type> types = GetTypes(typeof(iCommand));
             foreach (Type t in types)
