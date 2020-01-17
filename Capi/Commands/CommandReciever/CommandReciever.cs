@@ -10,6 +10,11 @@ namespace Capi.Commands.CommandReciever
     {
         public bool Update { get; set; }
 
+        public CmdReciever()
+        {
+            
+        }
+
         public virtual async Task<List<iCommand>> RecieveCommands()
         {
             var e = new List<iCommand>();

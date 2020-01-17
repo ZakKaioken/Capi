@@ -11,7 +11,6 @@ namespace Command_API.Commands
         public string command { get; set; }
         public CommandRatings Rating { get; set; }
         public CommandType Type { get; set; }
-
         public async Task<object> DoWork(MsgData md)
         {
             StringBuilder sb = new StringBuilder();
@@ -37,7 +36,7 @@ namespace Command_API.Commands
 
         public Command()
         {
-
+            Console.WriteLine($"{GetType()} {command} cmd spawned");
         }
     }
 }

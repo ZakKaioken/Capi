@@ -14,6 +14,7 @@ namespace Capi.Commands.CommandReciever
         {
             var StaticCommands = new List<iCommand>();
             IEnumerable<Type> types = GetTypes(typeof(iCommand));
+           
             foreach (Type t in types)
             {
                 object[] exa = t.GetCustomAttributes(typeof(CmdAttribute), true);
@@ -23,10 +24,11 @@ namespace Capi.Commands.CommandReciever
                     obj.Command = at.command;
                     obj.Rating = (CommandRatings)at.commandRatings;
                     obj.Type = (CommandType)at.commandType;
+                    
                     StaticCommands.Add(obj);
                 }
             }
-            
+            StaticCommands = StaticCommands.GroupBy(x => x.Command).Select(y => y.First()).ToList();
             return await Task.FromResult(StaticCommands); 
         }
         private IEnumerable<Type> GetTypes(Type t)

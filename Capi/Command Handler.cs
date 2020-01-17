@@ -14,11 +14,16 @@ namespace Capi
         public List<iCommand> StaticCommands = new List<iCommand>();
         public List<iCommand> commands = new List<iCommand>();
 
+        public Command_Handler()
+        {
+            Init().GetAwaiter().GetResult();
+        }
+
         public async Task Init()
         {
             var go = CRReflector.ReflectRecievers();
 
-            foreach(var ee in go)
+            foreach(var ee in go.ToList())
             {
                 if (!ee.Update)
                 {
@@ -26,7 +31,7 @@ namespace Capi
                     go.Remove(ee);
                 }
             }
-            cr = go;
+            cr = go.ToList();
             await Task.CompletedTask;
         }
 
