@@ -35,6 +35,21 @@ namespace Capi
             await Task.CompletedTask;
         }
 
+        public async Task<List<iCommand>> GetHelp (CommandRatings[] userratings)
+        {
+            await Reload();
+            var list = new List<iCommand>();
+            var urs = userratings;
+            foreach (var c in commands.ToList())
+            {
+                if (urs.Contains(c.Rating))
+                {
+                    list.Add(c);
+                }
+            }
+            var e = list;
+            return await Task.FromResult(e);
+        }
        
         public async Task Reload()
         {
@@ -52,7 +67,7 @@ namespace Capi
             List<object> ooo = new List<object>();
             await Reload();
 
-            foreach (iCommand command in commands)
+            foreach (iCommand command in commands.ToList())
             {
                 bool b = await command.Evaluate(md);
                 if (b)
