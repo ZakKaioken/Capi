@@ -9,8 +9,11 @@ namespace Capi.Interfaces
     public interface iCommand : ICommandRating, ICommandType
     {
         string Command { get; set; }
+        bool Multithreaded { get; set; }
         Task<bool> Evaluate(iMsgData message);
-        Task<object> DoWork(iMsgData md);
+        Task DoWork(iMsgData md);
+        Task<string> toHelpString(iMsgData md);
+        bool ShowHelp(iMsgData md);
     }
 
 

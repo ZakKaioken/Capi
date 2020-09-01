@@ -18,23 +18,7 @@ namespace Command_API
             {
                 string message = Console.ReadLine();
                 MsgData md = new MsgData(message);
-
-                object o = ch.DoCommands(md).GetAwaiter().GetResult();
-
-                if (o is List<object> os)
-                {
-                    foreach (object oo in os)
-                    {
-
-                        if (oo is StringBuilder sb)
-                        {
-                            Console.WriteLine(sb.ToString());
-                        } else
-                        {
-                            Console.WriteLine(oo.GetType());
-                        }
-                    }
-                }
+                await ch.DoCommands(md);
 
             }
 
